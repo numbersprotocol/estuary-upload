@@ -1,0 +1,20 @@
+{
+  "name": "estuary-upload",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "add-dir": "node add-dir.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "ipfs-car": "^0.8.1"
+  },
+  "devDependencies": {
+    "jest": "^29.0.3"
+  }
+}
