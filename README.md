@@ -9,7 +9,9 @@ import { Estuary } from 'estuary-upload';
 
 const estuary = new Estuary('<api-key>');
 const resp = await estuary.add('my-file.jpg');
-console.log(`The file is uploaded to Estuary with CID ${resp.data.cid} preserved!`);
+console.log(
+  `The file is uploaded to Estuary with CID ${resp.data.cid} preserved!`
+);
 ```
 
 ### CLI tool to add all files in a directory
@@ -24,7 +26,6 @@ $ npm run add-dir <file-dirpath>
   ... 900 more items
 ]
 ```
-
 
 ## Run Test
 

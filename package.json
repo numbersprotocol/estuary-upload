@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "type": "module",
   "description": "",
-  "main": "index.js",
+  "engines": {
+    "node": ">=14.16"
+  },
+  "exports": "./src/index.ts",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "add-dir": "node add-dir.js"
+    "test": "jest",
+    "lint": "eslint . --ext .ts",
+    "add-dir": "ts-node --esm src/cli.ts"
   },
   "author": "",
   "license": "MIT",
@@ -15,6 +19,28 @@
     "ipfs-car": "^0.8.1"
   },
   "devDependencies": {
-    "jest": "^29.0.3"
+    "@types/jest": "^29.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "eslint": "^8.23.1",
+    "jest": "^29.0.3",
+    "ts-jest": "^29.0.1",
+    "ts-node": "^10.9.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.json"
+        }
+      ]
+    },
+    "testMatch": [
+      "**/test/**/*.test.ts"
+    ]
   }
 }
