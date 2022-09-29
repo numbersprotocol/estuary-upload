@@ -22,7 +22,8 @@
     "clean": "rimraf ./build ./dist ./docs",
     "test": "jest",
     "lint": "eslint . --ext .ts",
-    "add-dir": "ts-node --esm src/cli.ts"
+    "add-dir": "ts-node --esm src/cli.ts",
+    "prepare": "npm run build && npm run build:types"
   },
   "author": "",
   "license": "MIT",
