@@ -21,6 +21,8 @@
     "docs": "typedoc src --out docs",
     "clean": "rimraf ./build ./dist ./docs",
     "test": "jest",
+    "unit": "jest --group=unit",
+    "integration": "jest --group=integration",
     "lint": "eslint . --ext .ts",
     "add-dir": "ts-node --esm src/cli.ts",
     "prepare": "npm run build && npm run build:types"
@@ -41,6 +43,7 @@
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "eslint": "^8.23.1",
     "jest": "^29.0.3",
+    "jest-runner-groups": "^2.2.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.79.1",
     "ts-jest": "^29.0.1",
@@ -54,6 +57,7 @@
       "ts",
       "js"
     ],
+    "runner": "groups",
     "transform": {
       "^.+\\.ts$": [
         "ts-jest",
