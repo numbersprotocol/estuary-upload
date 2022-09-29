@@ -8,9 +8,9 @@
 import { Estuary } from 'estuary-upload';
 
 const estuary = new Estuary('<api-key>');
-const resp = await estuary.add('my-file.jpg');
+const cid = await estuary.addFromPath('my-file.jpg');
 console.log(
-  `The file is uploaded to Estuary with CID ${resp.data.cid} preserved!`
+  `The file is uploaded to Estuary with CID ${cid} preserved!`
 );
 ```
 
@@ -29,20 +29,24 @@ $ npm run add-dir <file-dirpath>
 
 ## Run Test
 
-1. Set API KEY
+### Unit Test
 
 ```bash
+$ npm run unit
+```
+
+### Integration Test
+
+The integration test will fetch an image (size ~20MB) from public IPFS gateway and upload it to Estuary.
+
+1. Set API key
+
+```
 $ export ESTUARY_API_KEY=<api-key>
 ```
 
-2. Download test image
+2. Run test
 
-```bash
-$ ./get-test-image.sh
 ```
-
-3. Run test
-
-```bash
-$ npm test
+$ npm run integration
 ```
