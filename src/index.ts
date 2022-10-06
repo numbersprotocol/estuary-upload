@@ -31,6 +31,12 @@ export class Estuary {
       .then((resp) => resp.data.cid);
   }
 
+  async addFromCid(cid: string): Promise<string> {
+    return this.client
+      .post('https://api.estuary.tech/content/add-ipfs', {root: cid})
+      .then((resp) => resp.data.pin.cid);
+  }
+
   async addFromPath(path: string): Promise<string> {
     const content = new Uint8Array(await fs.promises.readFile(path));
     return this.addFromBuffer(content);

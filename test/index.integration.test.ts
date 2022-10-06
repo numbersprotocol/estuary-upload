@@ -41,7 +41,16 @@ describe('Test Estuary upload', () => {
     const apiKey = `${process.env.ESTUARY_API_KEY}`;
     const estuary = new Estuary(apiKey);
     const cid = await estuary.addFromPath('nft-x3yrqla.png');
-    console.log(cid);
+    expect(cid).toBe(
+      'bafybeiahygguo43ygbilfwjlhvdrlwxxkknvxanhldil5cqp47jx3yrqla'
+    );
+  }, 120000);
+
+  test('Can add file to Estuary from CID and preserve CID', async () => {
+    const apiKey = `${process.env.ESTUARY_API_KEY}`;
+    const estuary = new Estuary(apiKey);
+    const cid = await estuary.addFromCid('bafybeiahygguo43ygbilfwjlhvdrlwxxkknvxanhldil5cqp47jx3yrqla');
+    //console.log(cid);
     expect(cid).toBe(
       'bafybeiahygguo43ygbilfwjlhvdrlwxxkknvxanhldil5cqp47jx3yrqla'
     );
