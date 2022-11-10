@@ -18,7 +18,7 @@ console.log(
 
 ```bash
 $ export ESTUARY_API_KEY=<api-key>
-$ npm run add-dir <file-dirpath>
+$ estuary-upload <file-dirpath>
 
 ...
   'bafkreia2254bseihmsqw7fzxsk54p7nqmitn2ibhnjiafxtql6by54idv4',
