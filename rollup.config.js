@@ -41,5 +41,8 @@ export default [
       },
     ],
     plugins: [typescript({ tsconfig: "./tsconfig.json" })],
+    external: [
+      'fs', 'commander', 'ipfs-car/pack/blob', 'ipfs-car/blockstore/memory', 'axios',
+    ],
   },
 ];
