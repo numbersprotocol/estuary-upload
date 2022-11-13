@@ -1,23 +1,37 @@
 import { Estuary } from './index.js';
 import fs from 'fs';
+import { Command, Option, OptionValues } from 'commander';
 
-async function main() {
-  const args = process.argv.slice(2);
-  if (args.length !== 1) {
-    console.log(
-      'Require target directory path argument. Example: estuary-upload <dirpath>.'
-    );
-    return;
-  }
-
-  const dirpath = args[0];
+async function addDir(dirpath: string, options: OptionValues, command: Command) {
   const files = await fs.promises.readdir(dirpath);
-  const apiKey = `${process.env.ESTUARY_API_KEY}`;
+  await addFiles(files.map((file) => `${dirpath}/${file}`), options, command);
+}
+
+async function addFiles(files: Array<string>, options: OptionValues, command: Command) {
+  const apiKey = command.optsWithGlobals().key;
   const estuary = new Estuary(apiKey);
   const cids = await Promise.all(
-    files.map((file) => estuary.addFromPath(`${dirpath}/${file}`))
+    files.map((file) => estuary.addFromPath(file))
   );
   console.log(cids);
+}
+
+async function main() {
+  const program = new Command('estuary-upload')
+    .addOption(
+      new Option('-k, --key <key>', 'Estuary API key')
+        .env('ESTUARY_API_KEY')
+        .makeOptionMandatory(true)
+    );
+  program.command('add-dir')
+    .argument('<dir>')
+    .description('Add files in a directory.')
+    .action(addDir);
+  program.command('add-files')
+    .argument('<files...>')
+    .description('Add files.')
+    .action(addFiles);
+  await program.parseAsync(process.argv);
 }
 
 main()

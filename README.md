@@ -16,11 +16,23 @@ console.log(
 
 ### CLI tool to add all files in a directory
 
-```bash
+```
 $ export ESTUARY_API_KEY=<api-key>
-$ estuary-upload <file-dirpath>
+$ estuary-upload add-dir <dirpath>
+[
+  ...
+  'bafkreia2254bseihmsqw7fzxsk54p7nqmitn2ibhnjiafxtql6by54idv4',
+  'bafkreigrov5qj25vp2vawsjlav5v3veihagovvddjodlydspmy2mtmks5q',
+  ... 900 more items
+]
+```
 
-...
+### CLI tool to add specific files
+
+```
+$ estuary-upload -k <api-key> add-files <filepath...>
+[
+  ...
   'bafkreia2254bseihmsqw7fzxsk54p7nqmitn2ibhnjiafxtql6by54idv4',
   'bafkreigrov5qj25vp2vawsjlav5v3veihagovvddjodlydspmy2mtmks5q',
   ... 900 more items
