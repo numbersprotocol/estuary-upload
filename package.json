@@ -9,6 +9,9 @@
   "module": "dist/esm/estuary-upload.js",
   "browser": "dist/browser/estuary-upload.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "estuary-upload": "dist/cjs/cli.js"
+  },
   "files": [
     "dist"
   ],
@@ -24,7 +27,6 @@
     "unit": "jest --group=unit",
     "integration": "jest --group=integration",
     "lint": "eslint . --ext .ts",
-    "add-dir": "ts-node --esm src/cli.ts",
     "prepare": "npm run build && npm run build:types"
   },
   "author": "",

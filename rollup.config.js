@@ -31,4 +31,15 @@ export default [
     ],
     plugins: [typescript({ tsconfig: "./tsconfig.json" })],
   },
+  // CommonJS (for Node)
+  {
+    input: "src/cli.ts",
+    output: [
+      {
+        file: pkg.bin["estuary-upload"], format: "cjs", sourcemap: true,
+        banner: '#!/usr/bin/env node',
+      },
+    ],
+    plugins: [typescript({ tsconfig: "./tsconfig.json" })],
+  },
 ];
