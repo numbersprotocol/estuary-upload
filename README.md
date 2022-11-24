@@ -13,11 +13,39 @@ yarn global add @numbersprotocol/estuary-upload
 
 ### In code
 
+Add from path
+
 ```javascript
 import { Estuary } from 'estuary-upload';
 
 const estuary = new Estuary('<api-key>');
 const cid = await estuary.addFromPath('my-file.jpg');
+console.log(
+  `The file is uploaded to Estuary with CID ${cid} preserved!`
+);
+```
+
+Add from Nid (Kubo CIDv1)
+
+```javascript
+import { Estuary } from 'estuary-upload';
+
+const estuary = new Estuary('<api-key>');
+const cid = await estuary.addFromCid(
+  'bafkreia2254bseihmsqw7fzxsk54p7nqmitn2ibhnjiafxtql6by54idv4'
+);
+console.log(
+  `The file is uploaded to Estuary with CID ${cid} preserved!`
+);
+```
+
+Add from buffer
+
+```javascript
+import { Estuary } from 'estuary-upload';
+
+const estuary = new Estuary('<api-key>');
+const cid = await estuary.addFromBuffer(new Uint8Array([21, 31, 41]));
 console.log(
   `The file is uploaded to Estuary with CID ${cid} preserved!`
 );
