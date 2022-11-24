@@ -4,6 +4,11 @@ Upload your file to Estuary and generate Numbers ID (Nid, the same as [default I
 
 If you upload a file to Estuary and find the CIDv1 is different from Kubo (IPFS implementation in Go) CIDv1, it is because both Kubo and Estuary generate CIDv1, but they use different chunk sizes: Kubo (256 KB) vs Estuary (1 MB). estuary-upload helps you generate Nid (Kubo CIDv1) in any file size.
 
+## Installation
+```bash
+yarn global add @numbersprotocol/estuary-upload
+```
+
 ## Usage
 
 ### In code
