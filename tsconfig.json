@@ -4,6 +4,7 @@
     "moduleResolution": "node",
     "declaration": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "noImplicitAny": true,
@@ -14,5 +15,5 @@
       "*": ["node_modules/*", "src/types/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "test/**/*"]
 }
