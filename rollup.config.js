@@ -40,7 +40,10 @@ export default [
         banner: '#!/usr/bin/env node',
       },
     ],
-    plugins: [typescript({ tsconfig: "./tsconfig.json" })],
+    plugins: [
+      json(),
+      typescript({ tsconfig: "./tsconfig.json" })
+    ],
     external: [
       'fs', 'commander', 'ipfs-car/pack/blob', 'ipfs-car/blockstore/memory', 'axios',
     ],

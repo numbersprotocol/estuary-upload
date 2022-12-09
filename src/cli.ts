@@ -1,6 +1,7 @@
 import { Estuary } from './index.js';
 import fs from 'fs';
 import { Command, Option, OptionValues } from 'commander';
+import { version } from '../package.json';
 
 async function addDir(dirpath: string, options: OptionValues, command: Command) {
   const files = await fs.promises.readdir(dirpath);
@@ -18,6 +19,7 @@ async function addFiles(files: Array<string>, options: OptionValues, command: Co
 
 async function main() {
   const program = new Command('estuary-upload')
+    .version(version)
     .addOption(
       new Option('-k, --key <key>', 'Estuary API key')
         .env('ESTUARY_API_KEY')

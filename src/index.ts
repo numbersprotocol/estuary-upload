@@ -1,12 +1,17 @@
 import { packToBlob } from 'ipfs-car/pack/blob';
+import { packToFs } from 'ipfs-car/pack/fs';
 import { MemoryBlockStore } from 'ipfs-car/blockstore/memory';
 import axios, { AxiosInstance } from 'axios';
 import fs from 'fs';
+import os from 'os';
 
 export class Estuary {
   authToken: string;
   client: AxiosInstance;
-  constructor(authToken: string, baseUrl = 'https://upload.estuary.tech') {
+  chunkSize: number;
+  constructor(
+    authToken: string, baseUrl: string = 'https://upload.estuary.tech',
+    timeout: number = 60000, chunkSize: number = 262144) {
     this.authToken = authToken;
     this.client = axios.create({
       baseURL: baseUrl,
@@ -17,6 +22,8 @@ export class Estuary {
     ] = `Bearer ${authToken}`;
     this.client.defaults.maxContentLength = Infinity;
     this.client.defaults.maxBodyLength = Infinity;
+    this.client.defaults.timeout = timeout;
+    this.chunkSize = chunkSize;
   }
 
   async addFromBuffer(buffer: ArrayBuffer | Uint8Array): Promise<string> {
@@ -24,7 +31,7 @@ export class Estuary {
       input: [buffer],
       blockstore: new MemoryBlockStore(),
       wrapWithDirectory: false,
-      maxChunkSize: 262144,
+      maxChunkSize: this.chunkSize,
     }).then((ret) => ret.car);
     return this.client
       .post('/content/add-car', new Uint8Array(await car.arrayBuffer()))
@@ -38,7 +45,17 @@ export class Estuary {
   }
 
   async addFromPath(path: string): Promise<string> {
-    const content = new Uint8Array(await fs.promises.readFile(path));
-    return this.addFromBuffer(content);
+    const output = `${os.tmpdir()}/${Math.floor(Math.random() * 1e9)}_${Date.now()}.car`;
+    await packToFs({
+      input: path,
+      output: output,
+      wrapWithDirectory: false,
+      maxChunkSize: this.chunkSize,
+    });
+    const inStream = fs.createReadStream(output);
+    return this.client
+      .post('/content/add-car', inStream)
+      .then((resp) => resp.data.cid)
+      .finally(() => {fs.unlinkSync(output)});
   }
 }
