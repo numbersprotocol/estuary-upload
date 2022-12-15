@@ -10,8 +10,8 @@ export class Estuary {
   client: AxiosInstance;
   chunkSize: number;
   constructor(
-    authToken: string, baseUrl: string = 'https://upload.estuary.tech',
-    timeout: number = 60000, chunkSize: number = 262144) {
+    authToken: string, baseUrl = 'https://upload.estuary.tech',
+    timeout = 60000, chunkSize = 262144) {
     this.authToken = authToken;
     this.client = axios.create({
       baseURL: baseUrl,
@@ -20,6 +20,9 @@ export class Estuary {
     this.client.defaults.headers.common[
       'Authorization'
     ] = `Bearer ${authToken}`;
+    // Add header Accept-Encoding to fix BrotliDecoder.zlibOnError in axis 1.2.1
+    // https://github.com/axios/axios/issues/5346
+    this.client.defaults.headers.common['Accept-Encoding'] = 'gzip,deflate,compress';
     this.client.defaults.maxContentLength = Infinity;
     this.client.defaults.maxBodyLength = Infinity;
     this.client.defaults.timeout = timeout;
