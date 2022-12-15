@@ -43,7 +43,7 @@ export class Estuary {
 
   async addFromCid(cid: string): Promise<string> {
     return this.client
-      .post('https://api.estuary.tech/content/add-ipfs', {root: cid})
+      .post('https://api.estuary.tech/content/add-ipfs', {cid: cid})
       .then((resp) => resp.data.pin.cid);
   }
 
